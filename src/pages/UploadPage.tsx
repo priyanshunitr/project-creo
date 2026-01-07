@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { IKContext, IKUpload } from 'imagekitio-react'
 import { H1, H2 } from '@/components/ui/typography'
 import { Button } from '@/components/ui/button'
