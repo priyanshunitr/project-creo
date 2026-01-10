@@ -1,5 +1,5 @@
-import { Button } from '../button'
-import { H4, P } from '../typography'
+import { Button } from '../ui/button'
+import { H4, P } from '../ui/typography'
 import Line from './Line'
 
 interface cardProps {

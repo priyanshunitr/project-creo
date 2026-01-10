@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Button } from '@/components/ui/button'
 import { NAV_LINKS } from '@/config/marginals'
 import logos from '@/config/logo'
@@ -6,8 +6,47 @@ import { Menu, X } from 'lucide-react'
 
 function NavBar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isVisible, setIsVisible] = useState(true)
+  const [lastScrollY, setLastScrollY] = useState(0)
 
-  const handleScroll = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>, href: string) => {
+  useEffect(() => {
+    let ticking = false
+
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const currentScrollY = window.scrollY
+          const footer = document.querySelector('footer')
+          const windowHeight = window.innerHeight
+
+          const isFooterVisible = footer ? footer.getBoundingClientRect().top < windowHeight : false
+
+          if (isFooterVisible) {
+            setIsVisible(false)
+          } else {
+            if (currentScrollY < lastScrollY || currentScrollY < 100) {
+              setIsVisible(true)
+            } else if (currentScrollY > lastScrollY && currentScrollY > 100) {
+              setIsVisible(false)
+            }
+          }
+
+          setLastScrollY(currentScrollY)
+          ticking = false
+        })
+
+        ticking = true
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [lastScrollY])
+
+  const handleScrollToSection = (
+    e: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
+    href: string,
+  ) => {
     e.preventDefault()
     setIsMenuOpen(false)
 
@@ -41,7 +80,7 @@ function NavBar() {
             asChild
             className='text-white text-base font-normal'
           >
-            <a href={link.href} onClick={(e) => handleScroll(e, link.href)}>
+            <a href={link.href} onClick={(e) => handleScrollToSection(e, link.href)}>
               {link.label}
             </a>
           </Button>
@@ -51,11 +90,15 @@ function NavBar() {
         </Button>
       </nav>
 
-      <div className='hidden lmd:flex items-end justify-center w-full pointer-events-auto'>
+      {/* Desktop/Bottom Navbar Container */}
+      <div
+        className={`hidden lmd:flex items-end justify-center w-full pointer-events-auto transition-all duration-500 ease-in-out ${
+          isVisible ? 'opacity-100 -translate-y-10' : 'opacity-0 translate-y-20'
+        }`}
+      >
         <div className='flex items-center gap-[21px] h-[84px] w-[1012px] max-w-full'>
           <div className='flex items-center gap-[10px] h-[84px] w-[1012px] max-w-full'>
             {/* Left: DesignTab Logo in Pink Box */}
-            {/* width: 71; height: 71; padding: 5px 6px */}
             <div className='bg-[#ff00bf] w-[71px] h-[71px] px-[6px] py-[5px] flex items-center justify-center shrink-0'>
               <img
                 src={logos.DesignTabNavbar}
@@ -73,7 +116,7 @@ function NavBar() {
                   asChild
                   className='text-white text-base font-normal'
                 >
-                  <a href={link.href} onClick={(e) => handleScroll(e, link.href)}>
+                  <a href={link.href} onClick={(e) => handleScrollToSection(e, link.href)}>
                     {link.label}
                   </a>
                 </Button>
@@ -81,13 +124,13 @@ function NavBar() {
             </nav>
           </div>
           {/* Right: Registration Button */}
-
           <Button className='bg-[#ff00bf] hover:opacity/80 text-black font-bold text-lg rounded-none w-[200px] h-[70px] px-[36px] py-[28px] flex items-center justify-center shrink-0'>
             Register Now
           </Button>
         </div>
       </div>
 
+      {/* Mobile Hamburger Button */}
       <div className='fixed top-0 left-0 right-0 flex lmd:hidden items-center justify-between w-full p-4 pointer-events-auto z-60 flex-1 px-6'>
         <div className='size-[40px] flex items-center justify-center shrink-0'>
           <img

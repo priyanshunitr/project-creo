@@ -1,7 +1,6 @@
 import { useEffect, useRef } from 'react'
 import imgs from '@/config/hero'
 import Countdown from './Countdown'
-import NavBar from '../marginals/navbar/NavBar'
 import { EffectScene } from './glitcheffect/effect-scene'
 import HeroHeader from './HeroHeader'
 import HeroTitle from './HeroTitle'
@@ -9,6 +8,7 @@ import HeroInfo from './HeroInfo'
 import FloatingElement from './FloatingElement'
 
 function Hero() {
+  const heroRef = useRef<HTMLDivElement>(null)
   const topCornerLeftRef = useRef<HTMLDivElement>(null)
   const topCornerRightRef = useRef<HTMLDivElement>(null)
   const bottomCornerRightRef = useRef<HTMLDivElement>(null)
@@ -18,14 +18,15 @@ function Hero() {
   const contentRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    // Disable parallax on mobile devices
     if (typeof window !== 'undefined' && window.innerWidth < 768) return
+
+    const heroElement = heroRef.current
+    if (!heroElement) return
 
     let requestRef: number
     let targetX = 0
     let targetY = 0
 
-    // Separate current positions for different layer groups to create "lag" variance
     const posContent = { x: 0, y: 0 }
     const posCorners = { x: 0, y: 0 }
     const posButterflies = { x: 0, y: 0 }
@@ -33,6 +34,11 @@ function Hero() {
     const handleMouseMove = (e: MouseEvent) => {
       targetX = (e.clientX - window.innerWidth / 2) / window.innerWidth
       targetY = (e.clientY - window.innerHeight / 2) / window.innerHeight
+    }
+
+    const handleMouseLeave = () => {
+      targetX = 0
+      targetY = 0
     }
 
     const lerp = (start: number, end: number, factor: number) => {
@@ -79,21 +85,24 @@ function Hero() {
       requestRef = requestAnimationFrame(animate)
     }
 
-    window.addEventListener('mousemove', handleMouseMove)
+    heroElement.addEventListener('mousemove', handleMouseMove)
+    heroElement.addEventListener('mouseleave', handleMouseLeave)
     requestRef = requestAnimationFrame(animate)
 
     return () => {
-      window.removeEventListener('mousemove', handleMouseMove)
+      heroElement.removeEventListener('mousemove', handleMouseMove)
+      heroElement.removeEventListener('mouseleave', handleMouseLeave)
       cancelAnimationFrame(requestRef)
     }
   }, [])
 
   return (
     <div
+      ref={heroRef}
       className='relative w-full min-h-screen overflow-hidden bg-black text-white font-sans'
-      id='#home'
+      id='home'
     >
-      <EffectScene image={imgs.homebackgorundandLayer} />
+      <EffectScene image={imgs.homebackgorundandLayer} heroRef={heroRef} />
 
       <div className='absolute inset-0 z-10 opacity-20'>
         <img
@@ -153,10 +162,6 @@ function Hero() {
 
         <Countdown />
         <div className='w-full max-w-6xl flex flex-col md:flex-row items-center justify-between mt-auto pt-10 gap-4 shrink-0'></div>
-      </div>
-
-      <div className='fixed bottom-4 left-0 w-full z-50 px-4 md:px-8 pointer-events-auto'>
-        <NavBar />
       </div>
     </div>
   )

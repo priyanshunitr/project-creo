@@ -1,5 +1,5 @@
 import imgs from '@/config/apply'
-import { H1, P } from '../typography'
+import { H1, P } from '../ui/typography'
 
 export default function Header() {
   return (

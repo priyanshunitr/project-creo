@@ -3,29 +3,22 @@ import { EffectComposer } from '@react-three/postprocessing'
 import { VhsGlitchEffect } from './vhs-glitch-effext'
 import { useTexture } from '@react-three/drei'
 import { Suspense, useRef, useEffect } from 'react'
+import type { RefObject } from 'react'
+
+const mouseState = { x: 0, y: 0, targetX: 0, targetY: 0 }
 
 function Background({ url }: { url: string }) {
   const meshRef = useRef<any>(null)
   const texture = useTexture(url) as any
   const { viewport } = useThree()
-  const mouse = useRef({ x: 0, y: 0 })
-
-  useEffect(() => {
-    const handleMouseMove = (event: MouseEvent) => {
-      mouse.current.x = (event.clientX / window.innerWidth) * 2 - 1
-      mouse.current.y = -(event.clientY / window.innerHeight) * 2 + 1
-    }
-
-    window.addEventListener('mousemove', handleMouseMove)
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove)
-    }
-  }, [])
 
   useFrame(() => {
+    mouseState.x += (mouseState.targetX - mouseState.x) * 0.1
+    mouseState.y += (mouseState.targetY - mouseState.y) * 0.1
+
     if (meshRef.current) {
-      meshRef.current.rotation.x += (mouse.current.y * 0.05 - meshRef.current.rotation.x) * 0.1
-      meshRef.current.rotation.y += (mouse.current.x * 0.05 - meshRef.current.rotation.y) * 0.1
+      meshRef.current.rotation.x = mouseState.y * 0.05
+      meshRef.current.rotation.y = mouseState.x * 0.05
     }
   })
 
@@ -50,7 +43,37 @@ function Background({ url }: { url: string }) {
   )
 }
 
-export function EffectScene({ image }: { image: string }) {
+interface EffectSceneProps {
+  image: string
+  heroRef?: RefObject<HTMLDivElement | null>
+}
+
+export function EffectScene({ image, heroRef }: EffectSceneProps) {
+  useEffect(() => {
+    if (!heroRef?.current) return
+
+    const heroElement = heroRef.current
+
+    const handleMouseMove = (event: MouseEvent) => {
+      mouseState.targetX = (event.clientX / window.innerWidth) * 2 - 1
+      mouseState.targetY = -(event.clientY / window.innerHeight) * 2 + 1
+    }
+
+    const handleMouseLeave = () => {
+      // Reset target to center when mouse leaves
+      mouseState.targetX = 0
+      mouseState.targetY = 0
+    }
+
+    heroElement.addEventListener('mousemove', handleMouseMove)
+    heroElement.addEventListener('mouseleave', handleMouseLeave)
+
+    return () => {
+      heroElement.removeEventListener('mousemove', handleMouseMove)
+      heroElement.removeEventListener('mouseleave', handleMouseLeave)
+    }
+  }, [heroRef])
+
   return (
     <div className='absolute inset-0 z-0 w-full h-full pointer-events-none'>
       <Canvas

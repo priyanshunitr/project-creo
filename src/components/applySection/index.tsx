@@ -5,7 +5,7 @@ import Cards from './Cards'
 
 function ApplySection() {
   return (
-    <div className='relative overflow-hidden py-20'>
+    <div id='apply-section' className='relative overflow-hidden py-20'>
       <div className='min-h-screen flex flex-col items-center relative'>
         <div
           className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-screen h-240 z-0'
