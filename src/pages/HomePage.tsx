@@ -9,6 +9,9 @@ export default function HomePage() {
         <Button asChild variant='outline'>
           <Link to='/playground'>Go to Playground</Link>
         </Button>
+        <Button asChild>
+          <Link to='/about'>About Us</Link>
+        </Button>
       </div>
     </main>
   )

@@ -37,7 +37,7 @@
   --secondary-foreground: #ffffff;
   --muted: #c6c6c6;
   --muted-foreground: #373737;
-  --accent: #ff8cb0;
+  --accent: rgba(17, 0, 78, 1);
   --accent-foreground: #000000;
   --destructive: oklch(0.577 0.245 27.325);
   --border: #c6c6c6;
@@ -56,6 +56,20 @@
   --sidebar-accent-foreground: #000000;
   --sidebar-border: #c6c6c6;
   --sidebar-ring: #ff14b2;
+
+  /* Custom variables from user snippet */
+  --blue-shadow: 0px 2px 0px 0px rgba(5, 52, 199, 1);
+  --brand-1: rgba(6, 23, 176, 1);
+  --brand-2: rgba(221, 57, 57, 1);
+  --brand-blue-2: rgba(5, 52, 199, 1);
+  --neutral-dark: rgba(0, 0, 0, 1);
+  --neutral-light: rgba(255, 255, 255, 1);
+  --sketch-font-family: 'Sketch Block', Helvetica;
+  --sketch-font-size: 90.94831848144531px;
+  --sketch-font-style: normal;
+  --sketch-font-weight: 700;
+  --sketch-letter-spacing: 2.9603943824768066px;
+  --sketch-line-height: 139.9999976158142%;
 }
 
 @theme inline {
@@ -102,6 +116,15 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+
+  /* Custom animations from user snippet */
+  --animate-fade-in: fade-in 1s var(--animation-delay, 0s) ease forwards;
+  --animate-fade-up: fade-up 1s var(--animation-delay, 0s) ease forwards;
+  --animate-marquee: marquee var(--duration) infinite linear;
+  --animate-marquee-vertical: marquee-vertical var(--duration) linear infinite;
+  --animate-shimmer: shimmer 8s infinite;
+  --animate-image-glow: image-glow 10s ease-in-out infinite;
+  --animate-spin: spin 1s linear infinite;
 }
 
 .dark {
@@ -142,7 +165,95 @@
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
+    background-color: var(--neutral-dark);
+    color: var(--neutral-light);
+  }
+}
+
+@layer components {
+  .all-\[unset\] {
+    all: unset;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+@keyframes image-glow {
+  0% {
+    opacity: 0;
+    animation-timing-function: cubic-bezier(0.74, 0.25, 0.76, 1);
+  }
+
+  10% {
+    opacity: 0.7;
+    animation-timing-function: cubic-bezier(0.12, 0.01, 0.08, 0.99);
+  }
+
+  to {
+    opacity: 0.4;
+  }
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes fade-up {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes shimmer {
+  0%,
+  90%,
+  to {
+    background-position: calc(-100% - var(--shimmer-width)) 0;
+  }
+
+  30%,
+  60% {
+    background-position: calc(100% + var(--shimmer-width)) 0;
+  }
+}
+
+@keyframes marquee {
+  0% {
+    transform: translate(0);
+  }
+
+  to {
+    transform: translateX(calc(-100% - var(--gap)));
+  }
+}
+
+@keyframes marquee-vertical {
+  0% {
+    transform: translateY(0);
+  }
+
+  to {
+    transform: translateY(calc(-100% - var(--gap)));
   }
 }

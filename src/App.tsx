@@ -1,5 +1,6 @@
 import { Suspense, lazy } from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { About } from './pages/About'
 
 const TypographyPage = lazy(() => import('./pages/TypographyPage'))
 const HomePage = lazy(() => import('./pages/HomePage'))
@@ -16,6 +17,7 @@ function App() {
           <Route path='/typography' element={<TypographyPage />} />
           <Route path='/playground' element={<Playground />} />
           <Route path='/upload' element={<UploadPage />} />
+          <Route path='/about' element={<About />} />
           <Route path='*' element={<NotFoundPage />} />
         </Routes>
       </Suspense>
