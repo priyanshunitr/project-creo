@@ -11,7 +11,7 @@ export default function HomePage() {
   const [isLoading, setIsLoading] = useState(true)
 
   return (
-    <main className='bg-black overflow-x-hidden'>
+    <main className='bg-black'>
       <AnimatePresence mode='wait'>
         {isLoading && <Preloader key='preloader' onComplete={() => setIsLoading(false)} />}
       </AnimatePresence>
