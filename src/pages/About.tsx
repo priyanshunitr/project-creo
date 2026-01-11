@@ -23,7 +23,7 @@ const Word = ({
 }) => {
   const opacity = useTransform(progress, range, [0.15, 1])
   return (
-    <span className='relative mx-1 inline-block'>
+    <span className='relative mx-[2px] md:mx-1 inline-block'>
       <span className='absolute opacity-10 select-none'>{children}</span>
       <motion.span style={{ opacity }} className={isPrimary ? 'text-primary' : 'text-white'}>
         {children}
@@ -60,16 +60,16 @@ export const About = (): JSX.Element => {
 
       {/* Sticky Content Layer - Stays pinned while scrolling */}
       <div className='sticky top-0 h-screen w-full flex justify-center items-center pointer-events-none z-10'>
-        <div className='flex flex-col max-w-6xl w-full px-6 md:px-12 justify-center text-center items-center pointer-events-auto'>
+        <div className='flex flex-col max-w-6xl w-full px-4 md:px-12 justify-center text-center items-center pointer-events-auto'>
           {/* Cat icons */}
-          <div className='flex gap-3 md:gap-4 mb-6 md:mb-10 animate-fade-in'>
-            <img className='w-8 md:w-10 h-auto' alt='brand icon' src={image2749} />
-            <img className='w-8 md:w-10 h-auto' alt='brand icon' src={image2748} />
-            <img className='w-8 md:w-10 h-auto' alt='brand icon' src={image2750} />
+          <div className='flex gap-2 md:gap-4 mb-6 md:mb-10 animate-fade-in'>
+            <img className='w-6 md:w-10 h-auto' alt='brand icon' src={image2749} />
+            <img className='w-6 md:w-10 h-auto' alt='brand icon' src={image2748} />
+            <img className='w-6 md:w-10 h-auto' alt='brand icon' src={image2750} />
           </div>
 
           {/* Reveal text */}
-          <h1 className='text-lg md:text-3xl font-black uppercase leading-[1.4] md:leading-[1.6] flex flex-wrap justify-center'>
+          <h1 className='text-[10px] sm:text-sm md:text-2xl lg:text-3xl font-black uppercase leading-[1.3] md:leading-[1.6] flex flex-wrap justify-center'>
             {words.map((word, i) => {
               const start = i / words.length
               const end = Math.min(start + 1.5 / words.length, 1) // Slightly overlap transitions for smoothness
