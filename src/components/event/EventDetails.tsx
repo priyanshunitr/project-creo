@@ -2,6 +2,7 @@ import React from 'react'
 import { EVENT_DETAILS } from '@/assets/config/event'
 import { BOLT_ICON, BG_PAGE_1, BG_PAGE_2 } from '@/assets/imgs/event'
 import Card from './Card'
+import './event.css'
 // import { P } from '../ui/typography'
 
 interface EventDetailsTemplateProps {
@@ -52,7 +53,7 @@ const EventDetails = () => {
     <>
       <div>
         <div
-          className='min-h-screen w-full relative bg-cover bg-no-repeat bg-[#030223]'
+          className='min-h-screen w-full relative bg-cover bg-no-repeat bg-[#030223] hi'
           style={{
             backgroundImage: `
             radial-gradient(34.66% 34.66% at 50% 65.34%, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.44) 100%),
