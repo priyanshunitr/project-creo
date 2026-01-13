@@ -10,7 +10,7 @@ export function FAQSection() {
 
   return (
     <section
-      className='w-full min-h-screen bg-black px-5 sm:px-8 lg:px-12 py-10 sm:py-12 md:pb-32'
+      className='w-full min-h-screen bg-black px-5 sm:px-8 lg:px-12 py-10 sm:py-12 md:pb-40'
       style={{
         backgroundImage: `url('${faqImages.background}')`,
         backgroundSize: 'cover',
