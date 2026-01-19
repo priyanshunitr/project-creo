@@ -9,42 +9,41 @@ export const EVENT_DETAILS = [
     id: 1,
     number: '01',
     title: 'REGISTRATION PROCESS',
-    description:
-      'Limited seats, big dreams! This is your design destiny on the line. Registrations open on 2nd July and close on 8th July. Register now and keep an eye on your inbox for that "You\'re in!" email, ideally around 10th July.',
+    description: `Registrations open on 20th January and close on 30th January. Register now solo or with a  team and keep an eye on your inbox for that “You’re in!” `,
   },
   {
     id: 2,
     number: '02',
     title: 'DATE AND TIME',
-    description:
-      'Limited seats, big dreams! This is your design destiny on the line. Registrations open on 2nd July and close on 8th July. Register now and keep an eye on your inbox for that "You\'re in!" email, ideally around 10th July.',
+    description: `Mark those calendars and cancel your weekend brunch. CREO Designathon is happening on the 
+31st Jan-1st Feb, 2026. One epic, non-stop, no-sleep, 24-hour ride through the wild world of design.`,
   },
   {
     id: 3,
     number: '03',
     title: 'PRICING DETAILS',
     description:
-      'Limited seats, big dreams! This is your design destiny on the line. Registrations open on 2nd July and close on 8th July. Register now and keep an eye on your inbox for that "You\'re in!" email, ideally around 10th July.',
+      'Snag your spot at the biggest online designathon of eastern India at just INR 299 at the unstop portal. This nominal registration fee is only collected solely to serious participation and help us cover the logistics costs. ',
   },
   {
     id: 4,
     number: '04',
     title: 'LOCATION',
     description:
-      'Limited seats, big dreams! This is your design destiny on the line. Registrations open on 2nd July and close on 8th July. Register now and keep an eye on your inbox for that "You\'re in!" email, ideally around 10th July.',
+      `It's happening online at your comfy couch but the madness should not stop!! You don’t have to bear any travel or accomodation costs just grab the opportunity to win prizes worth 45k.`,
   },
   {
     id: 5,
     number: '05',
     title: 'TEAM ALLOCATION',
     description:
-      'Limited seats, big dreams! This is your design destiny on the line. Registrations open on 2nd July and close on 8th July. Register now and keep an eye on your inbox for that "You\'re in!" email, ideally around 10th July.',
+      `You can participate in a team of 1-4 members, yes you read it right. Even if no teammates found no issues. Go solo and rock the stage.`,
   },
   {
     id: 6,
     number: '06',
     title: 'AWARDS',
     description:
-      'Limited seats, big dreams! This is your design destiny on the line. Registrations open on 2nd July and close on 8th July. Register now and keep an eye on your inbox for that "You\'re in!" email, ideally around 10th July.',
+      `There is a prize pool of 45K including some cash prizes to the winning teams, including exclusive CREO merchandise and Electronic goodies like headphone, speakers, etc.`,
   },
 ]

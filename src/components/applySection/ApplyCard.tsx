@@ -7,7 +7,7 @@ interface cardProps {
   heading: string
   tillDate: string
   price: number
-  registrationType: 'Early' | 'Regular'
+  cardType: 'Early' | 'Regular'
   isActive: boolean
   onHover: () => void
 }
@@ -16,7 +16,7 @@ function ApplyCard({ heading, tillDate, price, isActive, onHover }: cardProps) {
   return (
     <div
       className={`relative flex flex-col flex-wrap text-white h-full md:h-[270px] transition-all duration-500 ease-in-out z-40 overflow-hidden rounded-[13px] backdrop-blur-sm ${
-        isActive ? 'w-full md:w-[30rem] bg-[#822059]/80 shadow-2xl' : 'w-full md:w-[25rem]  '
+        isActive ? 'w-full bg-[#822059]/80 shadow-2xl' : 'w-full  '
       } `}
       onMouseEnter={onHover}
       style={{
